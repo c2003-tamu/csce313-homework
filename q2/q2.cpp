@@ -5,11 +5,24 @@
 
 using std::string, std::cout, std::cin, std::endl, std::vector;
 
-int getRandom(){
-    return 1;
+class MyClass {       // The class
+  public:             // Access specifier
+    int myNum;        // Attribute (int variable)
+    string myString;  // Attribute (string variable)
+};
+
+
+
+int getRandom(MyClass myObj){
+    return myObj.myNum;
 }
 
 int main(int argc, char* argv[]){
+    MyClass myObj;  // Create an object of MyClass
+
+    // Access attributes and set values
+    myObj.myNum = 15; 
+    myObj.myString = "Some text";
 
     vector<int> functionCallTimes;
     vector<int> systemCallTimes;
@@ -17,7 +30,7 @@ int main(int argc, char* argv[]){
     for(int i =0;i<30;i++){
         auto start = std::chrono::high_resolution_clock::now();
 
-        getRandom();
+        getRandom(myObj);
 
         auto stop = std::chrono::high_resolution_clock::now();
 
