@@ -31,7 +31,7 @@ int main(int argc, char* argv[]){
         cout << "could not fork" << endl;
     }else if(child == 0){
         //cout << "in child" << endl;
-        //close(myPipe[1]);
+        close(p[1]);
 
         while(true){
             bool receivedValue;
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]){
             }
         }
 
-
+        close(p[0]);
 
     }else{
        // cout << "in parent" << endl;
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]){
         if(deleted == -1){
             cout << "error deleting file" <<endl;
         }
-        //close(myPipe[0]);  // Close the read end of the pipe in the parent
+        close(p[0]);  // Close the read end of the pipe in the parent
 
         bool valueToSend = true;
 
@@ -81,8 +81,8 @@ int main(int argc, char* argv[]){
             perror("write");
             return 1;
         }
-        cout << endl<< "Parent Complete!!!"<<endl;
-        //close(myPipe[1]);  // Close the write end of the pipe in the parent
+        cout << endl<< "Parent Complete, file deleted"<<endl;
+        close(p[1]);  // Close the write end of the pipe in the parent
 
 
     }
