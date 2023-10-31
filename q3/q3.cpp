@@ -9,12 +9,12 @@ using std::string, std::cout, std::cin, std::endl;
 
 int main(int argc, char* argv[]){
     
-    int p[2];
-    int myPipe = pipe(p);
-    if(myPipe==-1){
-        cout << "could not open pipe";
-        return 1;
-    }
+    // int p[2];
+    // int myPipe = pipe(p);
+    // if(myPipe==-1){
+    //     cout << "could not open pipe";
+    //     return 1;
+    // }
 
     int file = open(argv[1], O_RDONLY);
     if(file == -1){
@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
     if(child == -1){
         cout << "could not fork" << endl;
     }else if(child == 0){
-        cout << "in child" << endl;
+        //cout << "in child" << endl;
         string filename = "tests/testout.txt";
         int outFile = open(filename.c_str(), O_WRONLY | O_CREAT, S_IRUSR | S_IWUSR);
 
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]){
             }
         }
     }else{
-        cout << "in parent" << endl;
+       // cout << "in parent" << endl;
         int deleted = unlink(argv[1]);
         if(deleted == -1){
             cout << "error deleting file" <<endl;
