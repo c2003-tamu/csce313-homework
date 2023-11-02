@@ -4,18 +4,21 @@
 #include <string>
 
 
-using std::string, std::cout, std::cin, std::endl, std::vector;
+using std::string, std::cout, std::cin, std::endl;
 
 
 int main(int argc, char* argv[]){
 
-    int count = 1;
-    vector<int> openProcesses;
+    int count = 0;
+    // vector<int> openProcesses;
     while(true){
-        openProcesses.push_back(open(argv[1], O_RDONLY));
-
+        int file = open(argv[1], O_RDONLY);
+        if(file == -1){
+            cout << "max reached: "<< count <<endl;
+            break;
+        }
+        ++count;
         cout << "count: "<<count<<endl;
-        count++;
 
     }
 
