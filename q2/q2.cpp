@@ -24,44 +24,36 @@ int main(int argc, char* argv[]){
     myObj.myNum = 15; 
     myObj.myString = "Some text";
 
-    
-    int totalTimeFunc = 0;
-    int totalTimeSys = 0;
-    for(int j =0;j<10;++j){
-        int totalFunctionNs = 0;
-        int totalSystemNs = 0;
-        for(int i =0;i<30;i++){
-            auto start = std::chrono::high_resolution_clock::now();
 
-            getRandom(myObj);
+    float totalFunctionNs = 0;
+    float totalSystemNs = 0;
+    for(int i =0;i<30;i++){
+        auto start = std::chrono::high_resolution_clock::now();
 
-            auto stop = std::chrono::high_resolution_clock::now();
+        getRandom(myObj);
 
-            auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+        auto stop = std::chrono::high_resolution_clock::now();
+
+        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
 
-            totalFunctionNs += duration.count();
+        totalFunctionNs += duration.count();
 
-            start = std::chrono::high_resolution_clock::now();
+        start = std::chrono::high_resolution_clock::now();
 
-            getpid();
+        getpid();
 
-            stop = std::chrono::high_resolution_clock::now();
+        stop = std::chrono::high_resolution_clock::now();
 
-            auto duration2 = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
-
-
-            totalSystemNs += duration2.count();
-        }
+        auto duration2 = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
 
-
-        totalTimeFunc += totalFunctionNs;
-        totalTimeSys += totalSystemNs;
+        totalSystemNs += duration2.count();
     }
 
-    cout << "average time for 30 function calls over 10 trials: " << totalTimeFunc/10 <<endl;
-    cout << "average time for 30 system calls over 10 trials: " << totalTimeSys/10 <<endl;
+    cout << "average time in nanoseconds for 30 function calls: " << totalFunctionNs/30 <<endl;
+    cout << "average time in nanoseconds for 30 system calls: " << totalSystemNs/30 <<endl;
+
     
 
     return 0;
