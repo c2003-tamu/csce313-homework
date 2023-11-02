@@ -9,7 +9,7 @@ using std::string, std::cout, std::cin, std::endl;
 
 int main(int argc, char* argv[]){
     
-    //bool complete = false;
+
     int p[2];
     int myPipe = pipe(p);
     if(myPipe==-1){
@@ -30,7 +30,7 @@ int main(int argc, char* argv[]){
     if(child == -1){
         cout << "could not fork" << endl;
     }else if(child == 0){
-        //cout << "in child" << endl;
+        
         close(p[1]);
 
         while(true){
@@ -67,7 +67,7 @@ int main(int argc, char* argv[]){
         close(p[0]);
 
     }else{
-       // cout << "in parent" << endl;
+
         int deleted = unlink(argv[1]);
         if(deleted == -1){
             cout << "error deleting file" <<endl;

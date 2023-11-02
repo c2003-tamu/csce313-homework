@@ -2,6 +2,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string>
+#include <cerrno>
 
 
 using std::string, std::cout, std::cin, std::endl;
@@ -13,7 +14,7 @@ int main(int argc, char* argv[]){
     // vector<int> openProcesses;
     while(true){
         int file = open(argv[1], O_RDONLY);
-        if(file == -1){
+        if(file == EMFILE){
             cout << "max reached: "<< count <<endl;
             break;
         }
