@@ -14,9 +14,14 @@ int main(int argc, char* argv[]){
     // vector<int> openProcesses;
     while(true){
         int file = open(argv[1], O_RDONLY);
-        if(file == EMFILE){
-            cout << "max reached: "<< count <<endl;
-            break;
+        if(file == -1){
+            if(errno == EMFILE){
+                cout << "max reached: "<< count <<endl;
+                break;
+            }else{
+                cout << "unknown error" << endl;
+                break;
+            }
         }
         ++count;
         //cout << "count: "<<count<<endl;
