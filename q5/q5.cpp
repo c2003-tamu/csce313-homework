@@ -24,7 +24,6 @@ int main(int argc, char* argv[]){
             }
         }
         ++count;
-        //cout << "count: "<<count<<endl;
 
     }
 
