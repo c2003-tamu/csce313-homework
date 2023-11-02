@@ -24,43 +24,44 @@ int main(int argc, char* argv[]){
     myObj.myNum = 15; 
     myObj.myString = "Some text";
 
-    vector<int> functionCallTimes;
-    vector<int> systemCallTimes;
+    
+    int totalTimeFunc = 0;
+    int totalTimeSys = 0;
+    for(int j =0;j<10;++j){
+        int totalFunctionNs = 0;
+        int totalSystemNs = 0;
+        for(int i =0;i<30;i++){
+            auto start = std::chrono::high_resolution_clock::now();
 
-    for(int i =0;i<30;i++){
-        auto start = std::chrono::high_resolution_clock::now();
+            getRandom(myObj);
 
-        getRandom(myObj);
+            auto stop = std::chrono::high_resolution_clock::now();
 
-        auto stop = std::chrono::high_resolution_clock::now();
+            auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
-        auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
-        //cout << "Time taken by function call: " << duration.count() << " microseconds" << endl;
-        functionCallTimes.push_back(duration.count());
+            totalFunctionNs += duration.count();
 
-        start = std::chrono::high_resolution_clock::now();
+            start = std::chrono::high_resolution_clock::now();
 
-        getpid();
+            getpid();
 
-        stop = std::chrono::high_resolution_clock::now();
+            stop = std::chrono::high_resolution_clock::now();
 
-        auto duration2 = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+            auto duration2 = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
 
-        //cout << "Time taken by system call: " << duration2.count() << " microseconds" << endl;
-        systemCallTimes.push_back(duration2.count());
+
+            totalSystemNs += duration2.count();
+        }
+
+
+
+        totalTimeFunc += totalFunctionNs;
+        totalTimeSys += totalSystemNs;
     }
 
-
-    int totalFunctionMs = 0;
-    int totalSystemMs = 0;
-    for(int i =0; i<30;i++){
-        totalFunctionMs += functionCallTimes.at(i);
-        totalSystemMs += systemCallTimes.at(i);
-    }
-
-    cout << "time for 30 function calls: " << totalFunctionMs << " nanoseconds" <<endl;
-    cout << "time for 30 system calls: " << totalSystemMs << " nanoseconds" <<endl;
+    cout << "average time for 30 function calls over 10 trials: " << totalTimeFunc/10 <<endl;
+    cout << "average time for 30 system calls over 10 trials: " << totalTimeSys/10 <<endl;
     
 
     return 0;
