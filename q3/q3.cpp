@@ -43,6 +43,7 @@ int main(int argc, char* argv[]){
             receivedValue = (receivedByte == 1);
 
             if(receivedValue){
+                cout << "recieved signal" <<endl;
                 break;
             }
         }
@@ -81,7 +82,8 @@ int main(int argc, char* argv[]){
             perror("write");
             return 1;
         }
-        cout << endl<< "Parent Complete, file deleted"<<endl;
+
+        cout << "Parent Complete, file deleted"<<endl;
         close(p[1]);  // Close the write end of the pipe in the parent
 
 

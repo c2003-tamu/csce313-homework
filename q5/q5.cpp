@@ -18,7 +18,7 @@ int main(int argc, char* argv[]){
             break;
         }
         ++count;
-        cout << "count: "<<count<<endl;
+        //cout << "count: "<<count<<endl;
 
     }
 
