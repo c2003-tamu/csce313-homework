@@ -51,8 +51,8 @@ int main(int argc, char* argv[]){
         totalSystemNs += duration2.count();
     }
 
-    cout << "average time in nanoseconds for 30 function calls: " << totalFunctionNs/30 <<endl;
-    cout << "average time in nanoseconds for 30 system calls: " << totalSystemNs/30 <<endl;
+    cout << "average time in nanoseconds for a function call over 30 trials: " << totalFunctionNs/30 <<endl;
+    cout << "average time in nanoseconds for a system call over 30 trials: " << totalSystemNs/30 <<endl;
 
     
 
